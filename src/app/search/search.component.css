@@ -1,0 +1,29 @@
+div{
+  text-align: center;
+}
+h1{
+  font-size: 2em;
+}
+img{
+  width: auto;
+  height: 10vh;
+}
+.back-ground{
+  background-color: #80ced6;
+}
+.back-ground-picture::before{
+  background-image: url('../../assets/back-view-beach-calm-waters-2310604.jpg');
+  background-size: cover;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.4;
+}
+
+
+
