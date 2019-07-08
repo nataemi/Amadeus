@@ -9,7 +9,7 @@ img{
   height: 10vh;
 }
 .back-ground::before{
-  background-color: #80ced6;
+  background-color: #007ad9;
 }
 /*.back-ground-picture::before{*/
 /*  background-image: url('../../assets/back-view-beach-calm-waters-2310604.jpg');*/

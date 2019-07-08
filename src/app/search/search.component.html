@@ -1,11 +1,11 @@
 <div class="p-grid back-ground">
 
   <p-fieldset class="p-col-10 p-offset-1 p-col-align-center">
-    <p-header style="text-align: left; font-size: 2.3em; font-style: italic; color: #80ced6;">
+    <p-header style="text-align: left; font-size: 2.5em; font-style: italic; color: #007ad9;">
       {{headerSlogan}}
     </p-header>
     <p-fieldset>
-      <p-header style="text-align: left; font-size: 1.2em; font-style: italic; color: #80ced6;">
+      <p-header style="text-align: left; font-size: 1.5em; font-style: italic; color: #007ad9;">
         Basic travel info
       </p-header>
     <div class="p-col-12 p-col-align-center" >
@@ -54,7 +54,7 @@
 
     <p-fieldset>
 
-      <p-header style="text-align: left; font-size: 1.2em; font-style: italic; color: #80ced6;">
+      <p-header style="text-align: left; font-size: 1.5em; font-style: italic; color: #007ad9;">
         Weather info
       </p-header>
 
@@ -66,7 +66,7 @@
 
     <p-selectButton [options]="weather" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name">
       <ng-template let-item>
-          <img src="assets/weather/{{item.value.png}}"/>
+          <img src="assets/weather/{{item.value.png}}" style="margin: 0.7vw; padding: 0.7vw;"/>
           <span>{{item.name}}</span>
       </ng-template>
     </p-selectButton>
@@ -79,7 +79,7 @@
     <span class="p-col-12 p-col-align-center">
       <p-selectButton [options]="rain" [(ngModel)]="selectedRainOption" multiple="multiple" optionLabel="name">
       <ng-template let-item>
-          <img src="assets/weather/{{item.value.png}}"/>
+          <img src="assets/weather/{{item.value.png}}" style="margin: 0.7vw; padding: 0.7vw;"/>
           <span>{{item.name}}</span>
       </ng-template>
     </p-selectButton>
@@ -113,4 +113,5 @@
 <div style="font-size: 0.5em;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a
   href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
   href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+<img src="../../assets/amadeus.png">
 

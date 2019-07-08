@@ -15,21 +15,21 @@ body .ui-selectbutton .ui-button:hover{
 }
 body .ui-selectbutton .ui-button.ui-state-active {
   background-color: transparent;
-  border: 3px solid #80ced6;
+  border: 3px solid #007ad9;
 }
 body .ui-selectbutton .ui-button.ui-state-active .ui-button-icon-left {
   color: #ffffff;
 }
 body .ui-selectbutton .ui-button.ui-state-active:not(.ui-state-disabled):hover {
   background-color: transparent;
-  border: 3px solid #80ced6;
+  border: 3px solid #007ad9;
 }
 body .ui-selectbutton .ui-button.ui-state-active:not(.ui-state-disabled):hover .ui-button-icon-left {
   color: #ffffff;
 }
 body .ui-selectbutton .ui-button.ui-state-active.ui-state-focus {
   background-color: transparent;
-  border: 3px solid #80ced6;
+  border: 3px solid #007ad9;
 }
 body .ui-togglebutton:not(.ui-state-disabled):not(.ui-state-active).ui-state-focus{
   background-color: transparent;
