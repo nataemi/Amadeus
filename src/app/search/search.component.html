@@ -1,15 +1,20 @@
-<div class="p-grid back-ground-picture">
-  <h1 class="p-col-12 p-col-align-center">
-    {{headerSlogan}}
-  </h1>
-  <p-card class="p-col-10 p-offset-1 p-col-align-center back-ground">
+<div class="p-grid back-ground">
+
+  <p-fieldset class="p-col-10 p-offset-1 p-col-align-center">
+    <p-header style="text-align: left; font-size: 2.3em; font-style: italic; color: #80ced6;">
+      {{headerSlogan}}
+    </p-header>
+    <p-fieldset>
+      <p-header style="text-align: left; font-size: 1.2em; font-style: italic; color: #80ced6;">
+        Basic travel info
+      </p-header>
     <div class="p-col-12 p-col-align-center" >
-      <input type="text" pInputText placeholder="Where are you travelling from" [(ngModel)]="localization"
+      <input type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
       style="width: 60vw"/>
       <button pButton type="button" icon="pi pi-globe" iconPos="left"></button>
     </div>
-    <div class="p-col-12 p-col-align-center">
-    <span class="p-col-3">
+    <div>
+    <span class="p-col-4">
       <span>
         Departure after:
       </span>
@@ -17,7 +22,7 @@
         <p-calendar [(ngModel)]="departureDate"></p-calendar>
       </span>
     </span>
-      <span class="p-col-3">
+      <span class="p-col-4">
     <span>
       Return before:
     </span>
@@ -45,6 +50,13 @@
       days
     </span>
     </div>
+    </p-fieldset>
+
+    <p-fieldset>
+
+      <p-header style="text-align: left; font-size: 1.2em; font-style: italic; color: #80ced6;">
+        Weather info
+      </p-header>
 
     <h2 class="p-col-12 p-col-align-center">
       Cloudy, sunny or partly?
@@ -89,13 +101,13 @@
       <p-dropdown [(ngModel)]="maxTemp" [options]="temperature">
       </p-dropdown>
     </div>
+    </p-fieldset>
 
-    <div class="p-col-12 p-col-align-center">
-      <button pButton type="button" class="ui-button-secondary p-col-6 "> Let's fly!</button>
+    <div style="padding: 2%">
+      <button pButton type="button" class="ui-button p-col-6 " label="Let's fly!"></button>
     </div>
 
-
-  </p-card>
+  </p-fieldset>
 
 </div>
 <div style="font-size: 0.5em;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a
