@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SelectItem} from 'primeng/api';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -12,7 +13,7 @@ export class SearchComponent implements OnInit {
   basicInfoSlogan = ' Basic travel info';
   weatherInfoSlogan = ' Weather info';
 
-  localization;
+  localization = '';
   departureDate = new Date();
   returnDate = new Date();
   days: SelectItem[] = [];
@@ -31,9 +32,14 @@ export class SearchComponent implements OnInit {
   selectedRainOption;
 
   noneWeatherOptionsSelected = false;
+  tempError = false;
+  daysError = false;
+  dateError = false;
+  localizationError = false;
+  anyErrors = false;
 
 
-  constructor() {
+  constructor(private router: Router) {
     this.fillDaysArray();
     this.fillTemperatureArray();
   }
@@ -55,13 +61,59 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkIfAnyChosen(obj:any){
-    if ( this.selectedWeathers.length === 0){
+  checkIfAnyChosen() {
+    if ( this.selectedWeathers.length === 0) {
       console.log('pustaaa');
       this.noneWeatherOptionsSelected = true;
+    } else {
+      this.noneWeatherOptionsSelected = false;
+    }
+  }
+
+  checkIfTempMaxHigherThanMin() {
+    if (this.maxTemp < this.minTemp) {
+      this.tempError = true;
+    } else {
+      this.tempError = false;
+    }
+  }
+
+  checkIfDaysMaxHigherThanMin() {
+    if (this.maxDays < this.minDays) {
+      this.daysError = true;
+    } else {
+      this.daysError = false;
+    }
+  }
+
+  checkIfReturnDayAfterDepartureDay() {
+    if (this.departureDate > this.returnDate) {
+      this.dateError = true;
+    } else {
+      this.dateError = false;
+    }
+  }
+
+  checkLocalization(){
+    if(this.localization === '' || this.localization.length < 3){
+      this.localizationError = true;
     }
     else{
-      this.noneWeatherOptionsSelected = false;
+      this.localizationError = false;
+    }
+  }
+
+  checkValidationAndSearch(){
+    this.checkLocalization();
+    this.checkIfDaysMaxHigherThanMin();
+    this.checkIfAnyChosen();
+    this.checkIfTempMaxHigherThanMin();
+    this.checkIfReturnDayAfterDepartureDay();
+    if(this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError){
+      this.anyErrors = true;
+    }
+    else{
+      this.router.navigate(['/list']);
     }
   }
 

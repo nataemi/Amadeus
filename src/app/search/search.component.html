@@ -15,11 +15,11 @@
 
       <div class="p-grid p-justify-center" style="margin: 2vh;">
         <input type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
-               class="p-col-9" required ngModel name="localizationText" #localizationText = "ngModel" minlength="3"/>
+               class="p-col-9" (input)='checkLocalization($event)'/>
         <button pButton type="button" icon="pi pi-globe" iconPos="left" class="p-col-2"></button>
-        <app-input-validation [control]="localizationText"
-                              [errDef]="{ required: 'We have to know where you are travelling from.',
-                      minlength: 'The localization should be at least 3 characteres.'}" ></app-input-validation>
+        <div *ngIf="localizationError" class="ui-message ui-messages-error p-col-12">
+          We have to know where you are travelling from. The localization should be at least 3 characteres.
+        </div>
       </div>
 
       <div class="p-grid p-justify-center">
@@ -27,14 +27,17 @@
           <span class="p-md-2">
               Departure after:
             </span>
-        <p-calendar [(ngModel)]="departureDate"></p-calendar>
+        <p-calendar [(ngModel)]="departureDate" (onSelect)="checkIfReturnDayAfterDepartureDay()"></p-calendar>
         </span>
         <span class="p-col-12 p-md-4">
           <span class="p-md-2">
           Return before:
             </span>
-        <p-calendar [(ngModel)]="returnDate"></p-calendar>
+        <p-calendar [(ngModel)]="returnDate" (onSelect)="checkIfReturnDayAfterDepartureDay()"></p-calendar>
         </span>
+      </div>
+      <div *ngIf="dateError" class="ui-message ui-messages-error p-col-12">
+        Return date can't be before departure date.
       </div>
       <div>
         <h2> Duration: </h2>
@@ -42,17 +45,18 @@
       <div class="p-grid p-justify-center">
         <span class="p-col-12 p-md-4">
         Min. :
-        <p-dropdown [(ngModel)]="minDays" [options]="days">
+        <p-dropdown [(ngModel)]="minDays" [options]="days" (onChange)="checkIfDaysMaxHigherThanMin()">
         </p-dropdown>
         </span>
 
         <span class="p-col-12 p-md-4">
            Max. :
-        <p-dropdown [(ngModel)]="maxDays" [options]="days">
+        <p-dropdown [(ngModel)]="maxDays" [options]="days" (onChange)="checkIfDaysMaxHigherThanMin()">
         </p-dropdown>
         </span>
-        <span>
-    </span>
+      </div>
+      <div *ngIf="daysError" class="ui-message ui-messages-error p-col-12">
+        Min days can't be more than max days.
       </div>
 
     </p-fieldset>
@@ -68,7 +72,7 @@
       </h2>
 
 
-      <p-selectButton [options]="weather" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name" (onChange)="checkIfAnyChosen($event)">
+      <p-selectButton [options]="weather" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name" (onChange)="checkIfAnyChosen()">
         <ng-template let-item>
           <img src="assets/weather/{{item.value.png}}" class="image-button"/>
           <span>{{item.name}}</span>
@@ -97,20 +101,27 @@
         <span class="p-col-12 p-md-4">
           Min. :
 
-      <p-dropdown [(ngModel)]="minTemp" [options]="temperature">
+      <p-dropdown [(ngModel)]="minTemp" [options]="temperature" (onChange)="checkIfTempMaxHigherThanMin()">
       </p-dropdown>
         </span>
         <span  class="p-col-12 p-md-4">
          Max. :
-        <p-dropdown [(ngModel)]="maxTemp" [options]="temperature">
+        <p-dropdown [(ngModel)]="maxTemp" [options]="temperature" (onChange)="checkIfTempMaxHigherThanMin()">
         </p-dropdown>
         </span>
+      </div>
+      <div *ngIf="tempError" class="ui-message ui-messages-error p-col-12">
+        Min temp can't be higher than max temp.
       </div>
 
     </p-fieldset>
 
     <div style="padding: 2%">
-      <button pButton type="button" class="ui-button p-col-10 p-md-6 " label="Let's fly!"  routerLink="/list"></button>
+      <button pButton type="button" class="ui-button p-col-10 p-md-6 " label="Let's fly!"  (click)="checkValidationAndSearch()"></button>
+    </div>
+
+    <div *ngIf="anyErrors" class="ui-message ui-messages-error p-col-12">
+      Fill the info properly before we can run your search.
     </div>
 
   </p-fieldset>
