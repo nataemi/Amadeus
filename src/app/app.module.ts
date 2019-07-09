@@ -12,7 +12,6 @@ import {CardModule} from 'primeng/card';
 import {FieldsetModule} from 'primeng/fieldset';
 import {RouterModule, Routes} from '@angular/router';
 import {ToastModule} from 'primeng/toast';
-import { InputValidationComponent } from './input-validation/input-validation.component';
 
 
 const appRoutes: Routes = [
@@ -26,8 +25,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SearchComponent,
-    ListComponent,
-    InputValidationComponent
+    ListComponent
   ],
   imports: [
     BrowserModule,
