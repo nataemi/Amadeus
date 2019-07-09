@@ -1,117 +1,122 @@
 <div class="p-grid back-ground">
 
-  <p-fieldset class="p-col-10 p-offset-1 p-col-align-center">
-    <p-header style="text-align: left; font-size: 2.5em; font-style: italic; color: #007ad9;">
-      {{headerSlogan}}
+
+  <p-fieldset class="p-col-12 p-md-10 p-md-offset-1 p-col-align-center">
+
+    <p-header class="section-header main-header">
+      {{mainHeaderSlogan}}
     </p-header>
+
     <p-fieldset>
-      <p-header style="text-align: left; font-size: 1.5em; font-style: italic; color: #007ad9;">
-        Basic travel info
+
+      <p-header class="section-header">
+        {{basicInfoSlogan}}
       </p-header>
-    <div class="p-col-12 p-col-align-center" >
-      <input type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
-      style="width: 60vw"/>
-      <button pButton type="button" icon="pi pi-globe" iconPos="left"></button>
-    </div>
-    <div>
-    <span class="p-col-4">
-      <span>
-        Departure after:
-      </span>
-      <span>
+
+      <div class="p-grid p-justify-center" style="margin: 2vh;">
+        <input type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
+               class="p-col-9" required ngModel name="localizationText" #localizationText = "ngModel" minlength="3"/>
+        <button pButton type="button" icon="pi pi-globe" iconPos="left" class="p-col-2"></button>
+        <app-input-validation [control]="localizationText"
+                              [errDef]="{ required: 'We have to know where you are travelling from.',
+                      minlength: 'The localization should be at least 3 characteres.'}" ></app-input-validation>
+      </div>
+
+      <div class="p-grid p-justify-center">
+        <span class="p-col-12 p-md-4">
+          <span class="p-md-2">
+              Departure after:
+            </span>
         <p-calendar [(ngModel)]="departureDate"></p-calendar>
-      </span>
+        </span>
+        <span class="p-col-12 p-md-4">
+          <span class="p-md-2">
+          Return before:
+            </span>
+        <p-calendar [(ngModel)]="returnDate"></p-calendar>
+        </span>
+      </div>
+      <div>
+        <h2> Duration: </h2>
+      </div>
+      <div class="p-grid p-justify-center">
+        <span class="p-col-12 p-md-4">
+        Min. :
+        <p-dropdown [(ngModel)]="minDays" [options]="days">
+        </p-dropdown>
+        </span>
+
+        <span class="p-col-12 p-md-4">
+           Max. :
+        <p-dropdown [(ngModel)]="maxDays" [options]="days">
+        </p-dropdown>
+        </span>
+        <span>
     </span>
-      <span class="p-col-4">
-    <span>
-      Return before:
-    </span>
-    <span>
-      <p-calendar [(ngModel)]="returnDate"></p-calendar>
-    </span>
-    </span>
-    </div>
-    <div class="p-col-12 p-col-align-center">
-      <h2> Duration: </h2>
-    </div>
-    <div class="p-col-12 p-col-align-center">
-      <span> Min. :</span>
-      <p-dropdown [(ngModel)]="minDays" [options]="days">
-      </p-dropdown>
-      <span>
-      days
-    </span>
-      <span>
-     Max. :
-    </span>
-      <p-dropdown [(ngModel)]="maxDays" [options]="days">
-      </p-dropdown>
-      <span>
-      days
-    </span>
-    </div>
+      </div>
+
     </p-fieldset>
 
     <p-fieldset>
 
-      <p-header style="text-align: left; font-size: 1.5em; font-style: italic; color: #007ad9;">
-        Weather info
+      <p-header class="section-header">
+        {{weatherInfoSlogan}}
       </p-header>
 
-    <h2 class="p-col-12 p-col-align-center">
-      Cloudy, sunny or partly?
-    </h2>
+      <h2>
+        Cloudy, sunny or partly?
+      </h2>
 
-    <span class="p-col-12 p-col-align-center">
 
-    <p-selectButton [options]="weather" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name">
-      <ng-template let-item>
-          <img src="assets/weather/{{item.value.png}}" style="margin: 0.7vw; padding: 0.7vw;"/>
+      <p-selectButton [options]="weather" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name" (onChange)="checkIfAnyChosen($event)">
+        <ng-template let-item>
+          <img src="assets/weather/{{item.value.png}}" class="image-button"/>
           <span>{{item.name}}</span>
-      </ng-template>
-    </p-selectButton>
-  </span>
+        </ng-template>
+      </p-selectButton>
+      <div *ngIf="noneWeatherOptionsSelected" class="ui-message ui-messages-error p-col-12">
+        For sure at least one weather option suits you.
+      </div>
 
 
-    <h2 class="p-col-12 p-col-align-center">
-      Are you fine with some rain?
-    </h2>
-    <span class="p-col-12 p-col-align-center">
+      <h2>
+        Are you fine with some rain?
+      </h2>
       <p-selectButton [options]="rain" [(ngModel)]="selectedRainOption" multiple="multiple" optionLabel="name">
-      <ng-template let-item>
-          <img src="assets/weather/{{item.value.png}}" style="margin: 0.7vw; padding: 0.7vw;"/>
+        <ng-template let-item>
+          <img src="assets/weather/{{item.value.png}}" class="image-button"/>
           <span>{{item.name}}</span>
-      </ng-template>
-    </p-selectButton>
-  </span>
+        </ng-template>
+      </p-selectButton>
 
-    <h2 class="p-col-12 p-col-align-center">
-      What about the temperature?
-    </h2>
+      <h2>
+        What about the temperature?
+      </h2>
 
-    <div class="p-col-12 p-col-align-center">
-      <span> Min. :</span>
-      <span>
+      <div class="p-grid p-justify-center">
+        <span class="p-col-12 p-md-4">
+          Min. :
+
       <p-dropdown [(ngModel)]="minTemp" [options]="temperature">
       </p-dropdown>
-    </span>
-      <span>
-     Max. :
-    </span>
-      <p-dropdown [(ngModel)]="maxTemp" [options]="temperature">
-      </p-dropdown>
-    </div>
+        </span>
+        <span  class="p-col-12 p-md-4">
+         Max. :
+        <p-dropdown [(ngModel)]="maxTemp" [options]="temperature">
+        </p-dropdown>
+        </span>
+      </div>
+
     </p-fieldset>
 
     <div style="padding: 2%">
-      <button pButton type="button" class="ui-button p-col-6 " label="Let's fly!"></button>
+      <button pButton type="button" class="ui-button p-col-10 p-md-6 " label="Let's fly!"  routerLink="/list"></button>
     </div>
 
   </p-fieldset>
 
 </div>
-<div style="font-size: 0.5em;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a
+<div style="font-size: 0.5em;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha"
+                                                title="Pixel Buddha">Pixel Buddha</a> from <a
   href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
   href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-<img src="../../assets/amadeus.png">
-

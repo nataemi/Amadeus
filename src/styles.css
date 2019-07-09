@@ -44,3 +44,12 @@ body .ui-selectbutton .ui-button:not(.ui-state-disabled):not(.ui-state-active).u
   background-color: transparent;
   border: none;
 }
+.ui-messages-error {
+  color: red;
+  margin: 0;
+  font-size: 0.7em;
+}
+.ui-message{
+  border: none;
+  margin: 0;
+}
