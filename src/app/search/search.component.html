@@ -7,11 +7,11 @@
       {{mainHeaderSlogan}}
     </p-header>
 
-    <p-fieldset>
+<!--    <p-fieldset>-->
 
-      <p-header class="section-header">
-        {{basicInfoSlogan}}
-      </p-header>
+<!--      <h2 class="section-header">-->
+<!--        {{basicInfoSlogan}}-->
+<!--      </h2>-->
 
       <div class="p-grid p-justify-center" style="margin: 2vh;">
         <input type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
@@ -59,13 +59,13 @@
         Min days can't be more than max days.
       </div>
 
-    </p-fieldset>
+<!--    </p-fieldset>-->
 
-    <p-fieldset>
+<!--    <p-fieldset>-->
 
-      <p-header class="section-header">
-        {{weatherInfoSlogan}}
-      </p-header>
+<!--      <h2 class="section-header">-->
+<!--        {{weatherInfoSlogan}}-->
+<!--      </h2>-->
 
       <h2>
         Cloudy, sunny or partly?
@@ -114,7 +114,7 @@
         Min temp can't be higher than max temp.
       </div>
 
-    </p-fieldset>
+<!--    </p-fieldset>-->
 
     <div style="padding: 2%">
       <button pButton type="button" class="ui-button p-col-10 p-md-6 " label="Let's fly!"  (click)="checkValidationAndSearch()"></button>
