@@ -37,12 +37,15 @@ export class SearchComponent implements OnInit {
   dateError = false;
   localizationError = false;
   anyErrors = false;
+  geolocationPosition;
 
 
   constructor(private router: Router) {
     this.fillDaysArray();
     this.fillTemperatureArray();
   }
+
+
 
   private fillTemperatureArray() {
     const MAXTEMP = 45;
@@ -59,11 +62,35 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  getLocation(){
+    if (window.navigator && window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(
+        position => {
+          this.geolocationPosition = position,
+            console.log(position);
+        },
+        error => {
+          switch (error.code) {
+            case 1:
+              console.log('Permission Denied');
+              break;
+            case 2:
+              console.log('Position Unavailable');
+              break;
+            case 3:
+              console.log('Timeout');
+              break;
+          }
+        }
+      );
+    };
   }
 
   checkIfAnyChosen() {
     if ( this.selectedWeathers.length === 0) {
-      console.log('pustaaa');
       this.noneWeatherOptionsSelected = true;
     } else {
       this.noneWeatherOptionsSelected = false;
