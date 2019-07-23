@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SelectItem} from 'primeng/api';
 import {Router} from '@angular/router';
+import {GeocodingService} from './geocoding.service';
 
 @Component({
   selector: 'app-search',
@@ -40,7 +41,7 @@ export class SearchComponent implements OnInit {
   geolocationPosition;
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private  geoCodingService: GeocodingService) {
     this.fillDaysArray();
     this.fillTemperatureArray();
   }

@@ -12,6 +12,8 @@ import {CardModule} from 'primeng/card';
 import {FieldsetModule} from 'primeng/fieldset';
 import {RouterModule, Routes} from '@angular/router';
 import {ToastModule} from 'primeng/toast';
+import { GooglePlacesDirective } from './search/google-places.directive';
+import { AgmCoreModule } from '@agm/core';
 
 
 const appRoutes: Routes = [
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SearchComponent,
-    ListComponent
+    ListComponent,
+    GooglePlacesDirective
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,10 @@ const appRoutes: Routes = [
     FieldsetModule,
     RouterModule.forRoot(
       appRoutes),
-    ToastModule
+    ToastModule,
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    })
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

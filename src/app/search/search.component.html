@@ -3,13 +3,13 @@
 
   <p-fieldset class="p-col-12 p-md-10 p-md-offset-1 p-col-align-center">
 
-    <p-header class="section-header main-header">
+    <p-header class="main-header">
       {{mainHeaderSlogan}}
     </p-header>
 
 
       <div class="p-grid p-justify-center" style="margin: 2vh;">
-        <input type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
+        <input google-place type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
                class="p-col-9" (input)='checkLocalization($event)'/>
         <button pButton type="button" icon="pi pi-globe" iconPos="left" class="p-col-2" (click)="getLocation()"></button>
         <div *ngIf="localizationError" class="ui-message ui-messages-error p-col-12">
