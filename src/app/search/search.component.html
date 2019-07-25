@@ -9,8 +9,8 @@
 
 
       <div class="p-grid p-justify-center" style="margin: 2vh;">
-        <input google-place type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
-               class="p-col-9" (input)='checkLocalization($event)'/>
+        <input #search type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
+               class="p-col-9" (input)='checkLocalization($event)' (ngModelChange)="checkLocalization($event)"/>
         <button pButton type="button" icon="pi pi-globe" iconPos="left" class="p-col-2" (click)="getLocation()"></button>
         <div *ngIf="localizationError" class="ui-message ui-messages-error p-col-12">
           We have to know where you are travelling from. The localization should be at least 3 characteres.
