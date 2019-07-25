@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { FlightDataService } from '../services/flight-data.service';
+=======
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {SelectItem} from 'primeng/api';
+import {Router} from '@angular/router';
+import {GeocodingService} from './geocoding.service';
+import {MapsAPILoader} from '@agm/core';
+>>>>>>> master
 
 @Component({
   selector: 'app-search',
@@ -10,12 +18,18 @@ import { FlightDataService } from '../services/flight-data.service';
 })
 export class SearchComponent implements OnInit {
 
+<<<<<<< HEAD
 
 
   mainHeaderSlogan = 'Pick your travel destination based on the weather';
   basicInfoSlogan = ' Basic travel info';
   weatherInfoSlogan = ' Weather info';
+=======
+  @ViewChild('search', {static: true})
+  public searchElementRef: ElementRef;
+>>>>>>> master
 
+  mainHeaderSlogan = 'Pick your travel destination based on the weather';
   localization = '';
   departureDate = new Date();
   returnDate = new Date();
@@ -33,6 +47,8 @@ export class SearchComponent implements OnInit {
     { name: 'rain', png: 'raindrops.png' }
   ];
   selectedRainOption;
+  lat;
+  lng;
 
   noneWeatherOptionsSelected = false;
   tempError = false;
@@ -42,10 +58,17 @@ export class SearchComponent implements OnInit {
   anyErrors = false;
   geolocationPosition;
 
+  geocoder;
 
+
+<<<<<<< HEAD
   constructor(private router: Router, private dataService: FlightDataService) {
+=======
+  constructor(private router: Router, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
+>>>>>>> master
     this.fillDaysArray();
     this.fillTemperatureArray();
+    this.geocoder = new google.maps.Geocoder();
   }
 
  dupa(){
@@ -56,8 +79,6 @@ export class SearchComponent implements OnInit {
  }
 
   private fillTemperatureArray() {
-    const MAXTEMP = 45;
-    const MINTEMP = -20;
     this.temperature = Array.from(Range(15, 5, -25));
   }
 
@@ -71,6 +92,23 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ['address']
+      });
+      autocomplete.addListener('place_changed', () => {
+        this.zone.run(() => {
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          this.localization = place.formatted_address;
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+        });
+      });
+    });
+
   }
 
   getLocation() {
@@ -79,6 +117,9 @@ export class SearchComponent implements OnInit {
         position => {
           this.geolocationPosition = position,
             console.log(position);
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+          this.callRevGeoLocate(this.lat, this.lng);
         },
         error => {
           switch (error.code) {
@@ -144,7 +185,14 @@ export class SearchComponent implements OnInit {
     this.checkIfAnyChosen();
     this.checkIfTempMaxHigherThanMin();
     this.checkIfReturnDayAfterDepartureDay();
+<<<<<<< HEAD
     if (this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError) {
+=======
+    console.log(this.localization);
+    console.log(this.lat);
+    console.log(this.lng);
+    if(this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError){
+>>>>>>> master
       this.anyErrors = true;
     }
     else {
@@ -161,6 +209,16 @@ export class SearchComponent implements OnInit {
     this.dataService.setReturnDate(this.returnDate);
 }
 
+
+  callRevGeoLocate(lat: number, lng: number) {
+    this.geoCodingService.getRevGeoLocation(lat, lng).subscribe(
+      results => {
+        this.zone.run(() => {
+          this.localization = results.formatted_address;
+        });
+      }
+    );
+  }
 
 }
 
