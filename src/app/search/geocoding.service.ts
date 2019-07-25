@@ -19,6 +19,7 @@ export class GeocodingService {
         latLng: latlng
       };
       return Observable.create(observer => {
+        // @ts-ignore
         this.geocoder.geocode(request, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK) {
             console.log(results[0]);

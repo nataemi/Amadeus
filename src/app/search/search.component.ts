@@ -1,11 +1,7 @@
-
-import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { FlightDataService } from '../services/flight-data.service';
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
-import {SelectItem} from 'primeng/api';
-import {Router} from '@angular/router';
 import {GeocodingService} from './geocoding.service';
 import {MapsAPILoader} from '@agm/core';
 
@@ -51,9 +47,9 @@ export class SearchComponent implements OnInit {
 
   geocoder;
 
-
-
-  constructor(private router: Router, private dataService: FlightDataService, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
+ constructor(
+   private router: Router, private dataService: FlightDataService, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader
+ ) {
     this.fillDaysArray();
     this.fillTemperatureArray();
     this.geocoder = new google.maps.Geocoder();
