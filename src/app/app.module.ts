@@ -12,9 +12,12 @@ import {CardModule} from 'primeng/card';
 import {FieldsetModule} from 'primeng/fieldset';
 import {RouterModule, Routes} from '@angular/router';
 import {ToastModule} from 'primeng/toast';
+import { FlightDataService } from './services/flight-data.service';
+import {DataViewModule} from 'primeng/dataview';
+import {DialogModule} from 'primeng/dialog';
+import {PanelModule} from 'primeng/panel';
 import { GooglePlacesDirective } from './search/google-places.directive';
 import { AgmCoreModule } from '@agm/core';
-
 
 const appRoutes: Routes = [
   { path: '', component: SearchComponent },
@@ -38,7 +41,10 @@ const appRoutes: Routes = [
     ButtonModule,
     CalendarModule,
     DropdownModule,
+    DialogModule,
+    PanelModule,
     SelectButtonModule,
+    DataViewModule,
     CardModule,
     FieldsetModule,
     RouterModule.forRoot(
@@ -48,7 +54,7 @@ const appRoutes: Routes = [
       apiKey: ''
     })
   ],
-  providers: [MessageService],
+  providers: [MessageService, FlightDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

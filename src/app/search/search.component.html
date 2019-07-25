@@ -1,12 +1,10 @@
 <div class="p-grid back-ground">
 
-
-  <p-fieldset class="p-col-12 p-md-10 p-md-offset-1 p-col-align-center">
+  <p-fieldset class="p-col-6 p-md-10 p-md-offset-1 p-col-align-center">
 
     <p-header class="main-header">
       {{mainHeaderSlogan}}
     </p-header>
-
 
       <div class="p-grid p-justify-center" style="margin: 2vh;">
         <input #search type="text" pInputText placeholder="Where are you travelling from?" [(ngModel)]="localization"
@@ -59,7 +57,6 @@
         Cloudy, sunny or partly?
       </h2>
 
-
       <p-selectButton [options]="weather" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name" (onChange)="checkIfAnyChosen()">
         <ng-template let-item>
           <img src="assets/weather/{{item.value.png}}" class="image-button"/>
@@ -69,8 +66,6 @@
       <div *ngIf="noneWeatherOptionsSelected" class="ui-message ui-messages-error p-col-12">
         For sure at least one weather option suits you.
       </div>
-
-
       <h2>
         Are you fine with some rain?
       </h2>

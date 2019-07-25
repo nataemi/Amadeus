@@ -53,3 +53,8 @@ body .ui-selectbutton .ui-button:not(.ui-state-disabled):not(.ui-state-active).u
   border: none;
   margin: 0;
 }
+p-fieldset .ui-fieldset{
+}
+p-fieldset .ui-fieldset .flight-search{
+  border-color: yellow !important;
+}

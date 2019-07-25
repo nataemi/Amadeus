@@ -1,3 +1,173 @@
-<p>
-  list works!
-</p>
+<div class="p-grid back-ground">
+
+  <p-fieldset class="p-col-12 p-md-10 p-md-offset-1 p-col-align-center">
+
+    <p-header class="section-header main-header">
+      {{mainHeaderSlogan}}
+    </p-header>
+    <p-fieldset legend="flight search" [toggleable]="true" class="flight-search p-col-12 p-md-10 p-md-offset-1 p-col-align-center" >
+    <div class="p-grid p-justify-center" style="margin: 2vh;">
+      <span class="p-col-12 p-md-2">
+      <span class="p-md-2">From:</span>
+      <input type="text" pInputText placeholder="{{localization}}" [(ngModel)]="localization"
+             />
+            </span>
+            <span class="p-col-12 p-md-2">
+            <span class="p-md-2">Temp min:</span>
+            <p-dropdown [(ngModel)]="minTemp" [options]="temperature">
+            </p-dropdown>
+            </span>
+            <span class="p-col-12 p-md-2">
+          <span class="p-md-2">Temp max:</span>
+            <p-dropdown [(ngModel)]="maxTemp" [options]="temperature">
+            </p-dropdown>
+          </span>
+          <span class="p-col-12 p-md-2">
+              <span class="p-md-2">
+                  Departure after:
+                </span>
+            <p-calendar [(ngModel)]="departureDate"></p-calendar>
+            </span>
+            <span class="p-col-12 p-md-2">
+                <span >
+                    return after:
+                  </span>
+              <p-calendar [(ngModel)]="returnDate"></p-calendar>
+              </span>
+
+    </div>
+    <div class="p-grid back-ground p-justify-center">
+        <p-selectButton [options]="selectedWeathers" [(ngModel)]="selectedWeathers" multiple="multiple" optionLabel="name">
+            <ng-template let-item>
+              <img src="assets/weather/{{item.value.png}}" class="image-button" />
+            </ng-template>
+          </p-selectButton>
+
+          <p-selectButton *ngIf="checkIfWeatherSelected" [options]="missingWeathers" [(ngModel)]="selectedRainOption" multiple="multiple" optionLabel="name">
+              <ng-template let-item>
+                <img src="assets/weather/{{item.value.png}}" class="image-button"/>
+                <span>{{item.name}}</span>
+              </ng-template>
+            </p-selectButton>
+            <p-selectButton *ngIf="true" [options]="rain" [(ngModel)]="selectedRainOption" multiple="multiple" optionLabel="name">
+                <ng-template let-item>
+                  <img src="assets/weather/{{item.value.png}}" class="image-button"/>
+                  <span>{{item.name}}</span>
+                </ng-template>
+              </p-selectButton>
+      </div>
+
+
+
+
+
+
+
+<!-- <p-dialog header="Car Details" [(visible)]="true" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '225px'}"  >
+    <div class="ui-g">
+        <div class="ui-g-12" style="text-align:center">
+            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
+        </div>
+        <div class="ui-g-4">Vin: </div>
+        <div class="ui-g-8">{{selectedCar.vin}}</div>
+
+        <div class="ui-g-4">Brand: </div>
+        <div class="ui-g-8">{{selectedCar.brand}}</div>
+
+        <div class="ui-g-4">Year: </div>
+        <div class="ui-g-8">{{selectedCar.year}}</div>
+
+        <div class="ui-g-4">Color: </div>
+        <div class="ui-g-8">{{selectedCar.color}}</div>
+    </div>
+</p-dialog> -->
+
+
+
+  </p-fieldset>
+
+  <p-dataView #dv [value]="f" [paginator]="false" [rows]="20" paginatorPosition="both" filterBy="brand"
+  [sortField]="sortField" [sortOrder]="sortOrder">
+  <p-header>
+      <div class="ui-helper-clearfix">
+          <div class="ui-g">
+              <div class="ui-g-12 ui-md-4">
+                  <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+              </div>
+              <div class="ui-g-6 ui-md-4 filter-container">
+                  <div style="position:relative">
+                      <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                  </div>
+              </div>
+              <div class="ui-g-6 ui-md-4" style="text-align:right">
+                  <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+              </div>
+          </div>
+      </div>
+  </p-header>
+  <ng-template let-flight pTemplate="listItem">
+      <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+          
+          <div class="ui-g-12 ui-md-8 flight-details">
+              <div class="ui-g">
+                  <div class="ui-g-2 ui-sm-6">From: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.from}}</b></div>
+
+                  <div class="ui-g-2 ui-sm-6">Destination: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
+
+                  <div class="ui-g-2 ui-sm-6">temperature: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.temperature}}</b></div>
+
+                  <div class="ui-g-2 ui-sm-6">Price: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
+                  <div class="ui-g-2 ui-sm-6">Link: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.link}}</b></div>
+                  <div class="ui-g-2 ui-sm-6">Departure: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.departure}}</b></div>
+                  <div class="ui-g-2 ui-sm-6">Return: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{flight.return}}</b></div>
+                  
+              </div>
+          </div>
+          <div class="ui-g-12 ui-md-1 search-icon">
+              <button pButton type="button" icon="pi pi-search" ></button>
+          </div>
+      </div>
+  </ng-template>
+  <ng-template let-flight pTemplate="gridItem">
+      <div style="padding:.5em" class="ui-g-12 ui-md-3">
+          <p-panel [header]="flight.from" [style]="{'text-align':'center'}">
+              <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
+              <div class="car-detail">{{car.year}} - {{car.color}}</div>
+              <hr class="ui-widget-content" style="border-top:0">
+              <button pButton type="button" icon="pi pi-search" style="margin-top:0"></button>
+          </p-panel>
+      </div>
+  </ng-template>
+</p-dataView>
+<p-dialog header="Flight Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '225px'}"  (onAfterHide)="onDialogHide()">
+  <div class="ui-g" *ngIf="selectedFlight">
+      <div class="ui-g-12" style="text-align:center">
+          <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
+      </div>
+      <div class="ui-g-4">Vin: </div>
+      <div class="ui-g-8">{{selectedFlight.price}}</div>
+
+      <div class="ui-g-4">Brand: </div>
+      <div class="ui-g-8">{{selectedFlight.from}}</div>
+
+      <div class="ui-g-4">Year: </div>
+      <div class="ui-g-8">{{selectedFlight.temperature}}</div>
+
+      <div class="ui-g-4">Color: </div>
+      <div class="ui-g-8">{{selectedFlight.link}}</div>
+  </div>
+</p-dialog>
+  </p-fieldset>
+
+</div>
+<div style="font-size: 0.5em;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha"
+                                                title="Pixel Buddha">Pixel Buddha</a> from <a
+  href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
+  href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>

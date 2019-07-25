@@ -1,13 +1,19 @@
+
+import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { FlightDataService } from '../services/flight-data.service';
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 import {Router} from '@angular/router';
 import {GeocodingService} from './geocoding.service';
 import {MapsAPILoader} from '@agm/core';
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
 
@@ -25,12 +31,12 @@ export class SearchComponent implements OnInit {
   minTemp = 25;
   maxTemp = 45;
   selectedWeathers: any[] = [];
-  weather: any[] = [ {name: 'clouds', png: 'clouds.png'},
-                    {name: 'cloudsAndSun', png: 'cloudAndSun.png'},
-                    {name: 'sun', png: 'sunny.png'}];
-  rain: any[] =  [
-                    {name: 'rain', png: 'raindrops.png'}
-                  ];
+  weather: any[] = [{ name: 'clouds', png: 'clouds.png' },
+  { name: 'cloudsAndSun', png: 'cloudAndSun.png' },
+  { name: 'sun', png: 'sunny.png' }];
+  rain: any[] = [
+    { name: 'rain', png: 'raindrops.png' }
+  ];
   selectedRainOption;
   lat;
   lng;
@@ -46,13 +52,19 @@ export class SearchComponent implements OnInit {
   geocoder;
 
 
-  constructor(private router: Router, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
+
+  constructor(private router: Router, private dataService: FlightDataService, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
     this.fillDaysArray();
     this.fillTemperatureArray();
     this.geocoder = new google.maps.Geocoder();
   }
 
+ dupa(){
 
+  for (let i = 0; i < 3; i++) {
+    console.log (this.selectedWeathers[i]);
+  }
+ }
 
   private fillTemperatureArray() {
     this.temperature = Array.from(Range(15, 5, -25));
@@ -60,9 +72,9 @@ export class SearchComponent implements OnInit {
 
   private fillDaysArray() {
     const MAXDAYS = 29;
-    this.days.push({label: '1 day', value: 1});
+    this.days.push({ label: '1 day', value: 1 });
     Array(MAXDAYS).fill(0).map((x, i) => {
-      this.days.push({label: `${i + 2}` + ' days', value: i + 2});
+      this.days.push({ label: `${i + 2}` + ' days', value: i + 2 });
     });
   }
 
@@ -87,7 +99,7 @@ export class SearchComponent implements OnInit {
 
   }
 
-  getLocation(){
+  getLocation() {
     if (window.navigator && window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(
         position => {
@@ -115,7 +127,7 @@ export class SearchComponent implements OnInit {
   }
 
   checkIfAnyChosen() {
-    if ( this.selectedWeathers.length === 0) {
+    if (this.selectedWeathers.length === 0) {
       this.noneWeatherOptionsSelected = true;
     } else {
       this.noneWeatherOptionsSelected = false;
@@ -146,8 +158,8 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  checkLocalization(){
-    if(this.localization === '' || this.localization.length < 3){
+  checkLocalization() {
+    if (this.localization === '' || this.localization.length < 3) {
       this.localizationError = true;
     }
     else {
@@ -155,22 +167,28 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  checkValidationAndSearch(){
+  checkValidationAndSearch() {
     this.checkLocalization();
     this.checkIfDaysMaxHigherThanMin();
     this.checkIfAnyChosen();
     this.checkIfTempMaxHigherThanMin();
     this.checkIfReturnDayAfterDepartureDay();
-    console.log(this.localization);
-    console.log(this.lat);
-    console.log(this.lng);
-    if(this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError){
+    if (this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError) {
       this.anyErrors = true;
     }
-    else{
+    else {
       this.router.navigate(['/list']);
     }
-  }
+    this.dataService.setLocalization(this.localization);
+    this.dataService.setMinTemp(this.minTemp);
+    this.dataService.setMaxTemp(this.maxTemp);
+    this.dataService.setMinDays(this.minDays);
+    this.dataService.setMaxDays(this.maxDays);
+    this.dataService.setSelectedRainOption(this.selectedRainOption);
+    this.dataService.setSelectedWeathers(this.selectedWeathers);
+    this.dataService.setDepartureDate(this.departureDate);
+    this.dataService.setReturnDate(this.returnDate);
+}
 
 
   callRevGeoLocate(lat: number, lng: number) {
@@ -185,6 +203,6 @@ export class SearchComponent implements OnInit {
 
 }
 
-const Range = function*(total = 0, step = 5, from = 0) {
-  for (let i = 0; i < total; yield { label: `${from + i * step}` + '°C', value: from + i++ * step}) {}
+const Range = function* (total = 0, step = 5, from = 0) {
+  for (let i = 0; i < total; yield { label: `${from + i * step}` + '°C', value: from + i++ * step }) { }
 };
