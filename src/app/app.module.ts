@@ -16,6 +16,9 @@ import { FlightDataService } from './services/flight-data.service';
 import {DataViewModule} from 'primeng/dataview';
 import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
+import { GooglePlacesDirective } from './search/google-places.directive';
+import { AgmCoreModule } from '@agm/core';
+
 const appRoutes: Routes = [
   { path: '', component: SearchComponent },
   { path: 'list',      component: ListComponent },
@@ -27,7 +30,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SearchComponent,
-    ListComponent
+    ListComponent,
+    GooglePlacesDirective
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,10 @@ const appRoutes: Routes = [
     FieldsetModule,
     RouterModule.forRoot(
       appRoutes),
-    ToastModule
+    ToastModule,
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    })
   ],
   providers: [MessageService, FlightDataService],
   bootstrap: [AppComponent]
