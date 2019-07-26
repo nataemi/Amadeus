@@ -1,15 +1,14 @@
 <div class="p-grid back-ground">
-
   <p-fieldset class="p-col-12 p-md-10 p-md-offset-1 p-col-align-center p-grid">
 
     <p-header class="section-header main-header">
       {{mainHeaderSlogan}}
     </p-header>
     <p-fieldset legend="flight search" [toggleable]="true">
-      <div class="p-grid p-justify-center">
+      <div class="p-grid p-justify-center" style="padding: 10px;">
         <span class="p-lg-2 p-md-4 p-grid">
           <span class="p-col-12" style="font-size: 0.8em;">From:</span>
-          <input  type="text" pInputText placeholder="{{localization}}" [(ngModel)]="localization" readonly />
+          <input  type="text" pInputText placeholder="{{localization}}" [(ngModel)]="localization"  readonly />
         </span>
         <span class="p-lg-2 p-md-4 p-grid">
           <span class="p-col-12" style="font-size: 0.8em;">Temp min:</span>
@@ -25,14 +24,14 @@
           <span class="p-col-12" style="font-size: 0.8em;">
             Departure after:
           </span>
-          <input type="text" pInputText placeholder="{{departureDate}}" [(ngModel)]="departureDate" readonly />
+          <input type="text" pInputText placeholder="{{departureDate | date: 'dd/MM/yyyy'}}" [(ngModel)]="departureDate" readonly />
 
         </span>
         <span class="p-lg-2 p-grid p-md-4">
           <span class="p-col-12" style="font-size: 0.8em;">
             return after:
           </span>
-          <input   type="text" pInputText placeholder="{{returnDate}}" [(ngModel)]="returnDate" readonly />
+          <input   type="text" pInputText placeholder="{{returnDate | date: 'dd/MM/yyyy'}}" [(ngModel)]="returnDate" readonly />
         </span>
 
       </div>
@@ -47,7 +46,7 @@
         <p-selectButton *ngIf="true" [options]="rain" [(ngModel)]="selectedRainOption" multiple="multiple"
           optionLabel="name">
           <ng-template let-item>
-            <img src="assets/weather/{{item.value.png}}" class="image-button" />
+            <img src="assets/weather/{{item.value.png}}" class="image-button"  />
             <span>{{item.name}}</span>
           </ng-template>
         </p-selectButton>
@@ -66,12 +65,9 @@
                 (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
             </div>
             <div class="ui-g-6 ui-md-4 filter-container">
-              <div style="position:relative">
-                <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
-              </div>
+
             </div>
             <div class="ui-g-6 ui-md-4" style="text-align:right">
-              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
             </div>
           </div>
         </div>
@@ -81,61 +77,56 @@
 
           <div class="ui-g-12 ui-md-8 flight-details">
             <div class="ui-g">
-              <div class="ui-g-2 ui-sm-6">From: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.from}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left">From: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.from}}</b></div>
 
-              <div class="ui-g-2 ui-sm-6">Destination: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left" >Destination: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.price}}</b></div>
 
-              <div class="ui-g-2 ui-sm-6">temperature: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.temperature}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left">temperature: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.temperature}}</b></div>
 
-              <div class="ui-g-2 ui-sm-6">Price: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
-              <div class="ui-g-2 ui-sm-6">Link: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.link}}</b></div>
-              <div class="ui-g-2 ui-sm-6">Departure: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.departure}}</b></div>
-              <div class="ui-g-2 ui-sm-6">Return: </div>
-              <div class="ui-g-10 ui-sm-6"><b>{{flight.return}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left">Price: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.price}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left">Link: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.link}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left">Departure: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.departureDate | date: 'dd/MM/yyyy'}}</b></div>
+              <div class="ui-g-2 ui-sm-6" style="text-align: left">Return: </div>
+              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.returnDate | date: 'dd/MM/yyyy'}}</b></div>
 
             </div>
           </div>
           <div class="ui-g-12 ui-md-1 search-icon">
-            <button pButton type="button" icon="pi pi-search"></button>
           </div>
         </div>
       </ng-template>
       <ng-template let-flight pTemplate="gridItem">
         <div style="padding:.5em" class="ui-g-12 ui-md-3">
           <p-panel [header]="flight.from" [style]="{'text-align':'center'}">
-            <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
-            <div class="car-detail">{{car.year}} - {{car.color}}</div>
+            <div class="car-detail">
+            <div class="ui-g-2 ui-sm-6">From: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.from}}</b></div>
+            <div class="ui-g-2 ui-sm-6">Destination: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
+            <div class="ui-g-2 ui-sm-6">temperature: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.temperature}}</b></div>
+            <div class="ui-g-2 ui-sm-6">Price: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
+            <div class="ui-g-2 ui-sm-6">Link: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.link}}</b></div>
+            <div class="ui-g-2 ui-sm-6">Departure: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.departureDate | date: 'dd/MM/yyyy'}}</b></div>
+            <div class="ui-g-2 ui-sm-6">Return: </div>
+            <div class="ui-g-10 ui-sm-6"><b>{{flight.returnDate | date: 'dd/MM/yyyy'}}</b></div>
+          </div>
             <hr class="ui-widget-content" style="border-top:0">
-            <button pButton type="button" icon="pi pi-search" style="margin-top:0"></button>
+            <button pButton type="button" icon="pi pi-search" style="margin-top:0;" ></button>
           </p-panel>
         </div>
       </ng-template>
     </p-dataView>
-    <p-dialog header="Flight Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
-      [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
-      <div class="ui-g" *ngIf="selectedFlight">
-        <div class="ui-g-12" style="text-align:center">
-          <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
-        </div>
-        <div class="ui-g-4">Vin: </div>
-        <div class="ui-g-8">{{selectedFlight.price}}</div>
 
-        <div class="ui-g-4">Brand: </div>
-        <div class="ui-g-8">{{selectedFlight.from}}</div>
-
-        <div class="ui-g-4">Year: </div>
-        <div class="ui-g-8">{{selectedFlight.temperature}}</div>
-
-        <div class="ui-g-4">Color: </div>
-        <div class="ui-g-8">{{selectedFlight.link}}</div>
-      </div>
-    </p-dialog>
   </p-fieldset>
 
 </div>
