@@ -1,10 +1,21 @@
 
+<<<<<<< HEAD
+=======
+import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { FlightDataService } from '../services/flight-data.service';
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 import {Router} from '@angular/router';
 import {GeocodingService} from './geocoding.service';
 import {MapsAPILoader} from '@agm/core';
+<<<<<<< HEAD
 import { FlightDataService } from '../services/flight-data.service';
+=======
+
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
 
 @Component({
   selector: 'app-search',
@@ -13,9 +24,12 @@ import { FlightDataService } from '../services/flight-data.service';
 })
 export class SearchComponent implements OnInit {
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
   @ViewChild('search', {static: true})
   public searchElementRef: ElementRef;
 
@@ -52,7 +66,11 @@ export class SearchComponent implements OnInit {
 
 
 
+<<<<<<< HEAD
   constructor(private dataService: FlightDataService, private router: Router, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
+=======
+  constructor(private router: Router, private dataService: FlightDataService, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
     this.fillDaysArray();
     this.fillTemperatureArray();
     this.geocoder = new google.maps.Geocoder();
@@ -172,11 +190,15 @@ export class SearchComponent implements OnInit {
     this.checkIfAnyChosen();
     this.checkIfTempMaxHigherThanMin();
     this.checkIfReturnDayAfterDepartureDay();
+<<<<<<< HEAD
 
     console.log(this.localization);
     console.log(this.lat);
     console.log(this.lng);
     if(this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError){
+=======
+    if (this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError) {
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
       this.anyErrors = true;
     }
     else {

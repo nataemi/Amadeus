@@ -12,11 +12,15 @@ import {CardModule} from 'primeng/card';
 import {FieldsetModule} from 'primeng/fieldset';
 import {RouterModule, Routes} from '@angular/router';
 import {ToastModule} from 'primeng/toast';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
 import { FlightDataService } from './services/flight-data.service';
 import {DataViewModule} from 'primeng/dataview';
 import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
+<<<<<<< HEAD
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -24,6 +28,11 @@ AgmCoreModule.forRoot({
   apiKey: 'AIzaSyDEovhn2gcEMTwTMg6bD_OgfPH0X0tRKPI'
 })
 
+=======
+import { GooglePlacesDirective } from './search/google-places.directive';
+import { AgmCoreModule } from '@agm/core';
+
+>>>>>>> 96fa65463bc275f1427740f7ffef434324a1cbe9
 const appRoutes: Routes = [
   { path: '', component: SearchComponent },
   { path: 'list',      component: ListComponent },
