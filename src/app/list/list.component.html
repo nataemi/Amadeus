@@ -1,3 +1,4 @@
+
 <div class="p-grid back-ground">
 
   <p-fieldset class="p-col-12 p-md-10 p-md-offset-1 p-col-align-center">
@@ -43,12 +44,6 @@
             </ng-template>
           </p-selectButton>
 
-          <p-selectButton *ngIf="checkIfWeatherSelected" [options]="missingWeathers" [(ngModel)]="selectedRainOption" multiple="multiple" optionLabel="name">
-              <ng-template let-item>
-                <img src="assets/weather/{{item.value.png}}" class="image-button"/>
-                <span>{{item.name}}</span>
-              </ng-template>
-            </p-selectButton>
             <p-selectButton *ngIf="true" [options]="rain" [(ngModel)]="selectedRainOption" multiple="multiple" optionLabel="name">
                 <ng-template let-item>
                   <img src="assets/weather/{{item.value.png}}" class="image-button"/>
@@ -107,7 +102,7 @@
   </p-header>
   <ng-template let-flight pTemplate="listItem">
       <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-          
+
           <div class="ui-g-12 ui-md-8 flight-details">
               <div class="ui-g">
                   <div class="ui-g-2 ui-sm-6">From: </div>
@@ -127,7 +122,7 @@
                   <div class="ui-g-10 ui-sm-6"><b>{{flight.departure}}</b></div>
                   <div class="ui-g-2 ui-sm-6">Return: </div>
                   <div class="ui-g-10 ui-sm-6"><b>{{flight.return}}</b></div>
-                  
+
               </div>
           </div>
           <div class="ui-g-12 ui-md-1 search-icon">

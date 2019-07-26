@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { Router } from '@angular/router';
-import { FlightDataService } from '../services/flight-data.service';
-=======
+
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 import {Router} from '@angular/router';
 import {GeocodingService} from './geocoding.service';
 import {MapsAPILoader} from '@agm/core';
->>>>>>> master
+import { FlightDataService } from '../services/flight-data.service';
 
 @Component({
   selector: 'app-search',
@@ -18,16 +13,11 @@ import {MapsAPILoader} from '@agm/core';
 })
 export class SearchComponent implements OnInit {
 
-<<<<<<< HEAD
 
 
-  mainHeaderSlogan = 'Pick your travel destination based on the weather';
-  basicInfoSlogan = ' Basic travel info';
-  weatherInfoSlogan = ' Weather info';
-=======
+
   @ViewChild('search', {static: true})
   public searchElementRef: ElementRef;
->>>>>>> master
 
   mainHeaderSlogan = 'Pick your travel destination based on the weather';
   localization = '';
@@ -61,11 +51,8 @@ export class SearchComponent implements OnInit {
   geocoder;
 
 
-<<<<<<< HEAD
-  constructor(private router: Router, private dataService: FlightDataService) {
-=======
-  constructor(private router: Router, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
->>>>>>> master
+
+  constructor(private dataService: FlightDataService, private router: Router, private geoCodingService: GeocodingService, private zone: NgZone, private mapsAPILoader: MapsAPILoader) {
     this.fillDaysArray();
     this.fillTemperatureArray();
     this.geocoder = new google.maps.Geocoder();
@@ -185,14 +172,11 @@ export class SearchComponent implements OnInit {
     this.checkIfAnyChosen();
     this.checkIfTempMaxHigherThanMin();
     this.checkIfReturnDayAfterDepartureDay();
-<<<<<<< HEAD
-    if (this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError) {
-=======
+
     console.log(this.localization);
     console.log(this.lat);
     console.log(this.lng);
     if(this.localizationError || this.dateError || this.noneWeatherOptionsSelected || this.daysError || this.tempError){
->>>>>>> master
       this.anyErrors = true;
     }
     else {
