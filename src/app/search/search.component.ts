@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
   }
 
   private fillDaysArray() {
-    const MAXDAYS = 29;
+    const MAXDAYS = 14;
     this.days.push({ label: '1 day', value: 1 });
     Array(MAXDAYS).fill(0).map((x, i) => {
       this.days.push({ label: `${i + 2}` + ' days', value: i + 2 });
