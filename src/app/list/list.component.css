@@ -26,6 +26,6 @@ img{
 .image-button{
   margin: 0.7vw; padding: 0.7vw;
 }
-.ui-dropdown{
-  min-width: 18.5em !important;
+input{
+  width:12em;
 }

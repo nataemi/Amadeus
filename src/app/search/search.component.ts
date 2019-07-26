@@ -106,7 +106,7 @@ export class SearchComponent implements OnInit {
             console.log(position);
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
-          this.callRevGeoLocate(this.lat, this.lng);
+          // this.callRevGeoLocate(this.lat, this.lng);
         },
         error => {
           switch (error.code) {
@@ -194,15 +194,15 @@ export class SearchComponent implements OnInit {
 }
 
 
-  callRevGeoLocate(lat: number, lng: number) {
-    this.geoCodingService.getRevGeoLocation(lat, lng).subscribe(
-      results => {
-        this.zone.run(() => {
-          this.localization = results.formatted_address;
-        });
-      }
-    );
-  }
+  // callRevGeoLocate(lat: number, lng: number) {
+  //   this.geoCodingService.getRevGeoLocation(lat, lng).subscribe(
+  //     results => {
+  //       this.zone.run(() => {
+  //         this.localization = results.formatted_address;
+  //       });
+  //     }
+  //   );
+  // }
 
 }
 

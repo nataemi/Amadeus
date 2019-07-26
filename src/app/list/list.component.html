@@ -6,34 +6,37 @@
     <p-header class="section-header main-header">
       {{mainHeaderSlogan}}
     </p-header>
-    <p-fieldset legend="flight search" [toggleable]="true" class="flight-search p-col-12 p-md-10 p-md-offset-1 p-col-align-center" >
+    <p-fieldset legend="flight search" [toggleable]="true" class="flight-search p-col-12 p-md-10 p-md-offset-1 p-col-align-center">
     <div class="p-grid p-justify-center" style="margin: 2vh;">
-      <span class="p-col-12 p-md-2">
-      <span class="p-md-2">From:</span>
+      <span class="p-md-2">
+      <span class="p-col-12 p-md-2">From:</span>
       <input type="text" pInputText placeholder="{{localization}}" [(ngModel)]="localization"
-             />
+      readonly />
             </span>
-            <span class="p-col-12 p-md-2">
-            <span class="p-md-2">Temp min:</span>
-            <p-dropdown [(ngModel)]="minTemp" [options]="temperature">
-            </p-dropdown>
+            <span class=" p-md-2">
+            <span class="p-col-12 p-md-2">Temp min:</span>
+            <input type="text" pInputText placeholder="{{minTemp}}" [(ngModel)]="minTemp"
+      readonly />
             </span>
-            <span class="p-col-12 p-md-2">
-          <span class="p-md-2">Temp max:</span>
-            <p-dropdown [(ngModel)]="maxTemp" [options]="temperature">
-            </p-dropdown>
+            <span class=" p-md-2">
+          <span class="p-col-12 p-md-2">Temp max:</span>
+          <input type="text" pInputText placeholder="{{maxTemp}}" [(ngModel)]="maxTemp"
+      readonly />
+
           </span>
-          <span class="p-col-12 p-md-2">
-              <span class="p-md-2">
+          <span class="p-md-2">
+              <span class="p-col-12 p-md-2">
                   Departure after:
                 </span>
-            <p-calendar [(ngModel)]="departureDate"></p-calendar>
+                <input type="text" pInputText placeholder="{{departureDate | date}}" [(ngModel)]="departureDate"
+      readonly />
             </span>
-            <span class="p-col-12 p-md-2">
+            <span class="p-md-2">
                 <span >
                     return after:
                   </span>
-              <p-calendar [(ngModel)]="returnDate"></p-calendar>
+                  <input type="text" pInputText placeholder="{{returnDate | date:'shortDate'}}" [(ngModel)]="returnDate"
+      readonly />
               </span>
 
     </div>
