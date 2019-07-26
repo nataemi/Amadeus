@@ -29,3 +29,8 @@ img{
 .ui-dropdown{
   min-width: 18.5em !important;
 }
+input{
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  width: 100%;
+}
