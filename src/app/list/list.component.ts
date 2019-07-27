@@ -3,6 +3,7 @@ import { FlightDataService } from '../services/flight-data.service';
 import { SelectItem } from 'primeng/api';
 import { Flight } from '../model/flight';
 import {DataViewModule} from 'primeng/dataview';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -12,7 +13,7 @@ export class ListComponent implements OnInit {
 
 
 
- 
+
 
   days: SelectItem[] = [];
   mainHeaderSlogan = 'available flights';
@@ -98,7 +99,7 @@ onDialogHide() {
     this.sortOptions = [
       {label: 'Price', value: 'price'},
   ];
-  
+
     this.checkIfWeatherSelected();
     this.dataService.getLocalization().subscribe(data=>{
       this.localization=data;
@@ -125,7 +126,7 @@ onDialogHide() {
       this.selectedWeathers=data;
     });
     this.dataService.getDepartureDate().subscribe(data=>{
-      this.departureDate=data;
+      this.departureDate= data;
       if(data==0){
         this.departureDate=new Date();
       }

@@ -6,7 +6,7 @@ h1{
 }
 img{
   width: auto;
-  height: 10vh;
+  height: 8vh;
 }
 .back-ground::before{
   background-color: #007ad9;
@@ -28,4 +28,9 @@ img{
 }
 .ui-dropdown{
   min-width: 18.5em !important;
+}
+input{
+  margin-left: 0.8vw;
+  margin-right: 0.8vw;
+  width: 95%;
 }
