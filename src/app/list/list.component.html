@@ -4,7 +4,7 @@
     <p-header class="section-header main-header">
       {{mainHeaderSlogan}}
     </p-header>
-    <p-fieldset legend="flight search" [toggleable]="true">
+    <p-fieldset legend="flight search properties" [toggleable]="true">
       <div class="p-grid p-justify-center" style="padding: 10px;">
         <span class="p-lg-2 p-md-4 p-grid">
           <span class="p-col-12" style="font-size: 0.8em;">From:</span>
@@ -37,16 +37,16 @@
       </div>
       <div class="p-grid back-ground p-justify-center">
         <p-selectButton [options]="selectedWeathers" [(ngModel)]="selectedWeathers" multiple="multiple"
-          optionLabel="name">
+          optionLabel="name" disabled>
           <ng-template let-item>
-            <img src="assets/weather/{{item.value.png}}" class="image-button" />
+            <img src="assets/weather/{{item.value.png}}" class="image-button buttonImg" />
           </ng-template>
         </p-selectButton>
 
         <p-selectButton *ngIf="true" [options]="rain" [(ngModel)]="selectedRainOption" multiple="multiple"
-          optionLabel="name">
+          optionLabel="name" disabled>
           <ng-template let-item>
-            <img src="assets/weather/{{item.value.png}}" class="image-button"  />
+            <img src="assets/weather/{{item.value.png}}" class="image-button buttonImg"  />
             <span>{{item.name}}</span>
           </ng-template>
         </p-selectButton>
@@ -64,73 +64,51 @@
               <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
                 (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
             </div>
-            <div class="ui-g-6 ui-md-4 filter-container">
-
-            </div>
-            <div class="ui-g-6 ui-md-4" style="text-align:right">
-            </div>
           </div>
         </div>
       </p-header>
       <ng-template let-flight pTemplate="listItem">
-        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+        <div class="p-grid p-justify-center" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
 
-          <div class="ui-g-12 ui-md-8 flight-details">
-            <div class="ui-g">
-              <div class="ui-g-2 ui-sm-6" style="text-align: left">From: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.from}}</b></div>
 
-              <div class="ui-g-2 ui-sm-6" style="text-align: left" >Destination: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.price}}</b></div>
+              <div class="destination p-md-9 p-sm-12"><b>{{flight.destination}}</b></div>
 
-              <div class="ui-g-2 ui-sm-6" style="text-align: left">temperature: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.temperature}}</b></div>
+              <div>
+              <span class="p-md-1 p-sm-4">
+                <img *ngIf="flight.rain" class="iconImg" src="assets/weather/raindrops.png"/>
+                <a *ngIf="!flight.rain"> no rain </a>
+              </span>
 
-              <div class="ui-g-2 ui-sm-6" style="text-align: left">Price: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.price}}</b></div>
-              <div class="ui-g-2 ui-sm-6" style="text-align: left">Link: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.link}}</b></div>
-              <div class="ui-g-2 ui-sm-6" style="text-align: left">Departure: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.departureDate | date: 'dd/MM/yyyy'}}</b></div>
-              <div class="ui-g-2 ui-sm-6" style="text-align: left">Return: </div>
-              <div class="ui-g-10 ui-sm-6" style="text-align: left"><b>{{flight.returnDate | date: 'dd/MM/yyyy'}}</b></div>
+              <span class="p-md-1 p-sm-4">
+                <img class="iconImg" src="assets/weather/sunny.png"/>
+              </span>
 
-            </div>
-          </div>
-          <div class="ui-g-12 ui-md-1 search-icon">
-          </div>
-        </div>
-      </ng-template>
-      <ng-template let-flight pTemplate="gridItem">
-        <div style="padding:.5em" class="ui-g-12 ui-md-3">
-          <p-panel [header]="flight.from" [style]="{'text-align':'center'}">
-            <div class="car-detail">
-            <div class="ui-g-2 ui-sm-6">From: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.from}}</b></div>
-            <div class="ui-g-2 ui-sm-6">Destination: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
-            <div class="ui-g-2 ui-sm-6">temperature: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.temperature}}</b></div>
-            <div class="ui-g-2 ui-sm-6">Price: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.price}}</b></div>
-            <div class="ui-g-2 ui-sm-6">Link: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.link}}</b></div>
-            <div class="ui-g-2 ui-sm-6">Departure: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.departureDate | date: 'dd/MM/yyyy'}}</b></div>
-            <div class="ui-g-2 ui-sm-6">Return: </div>
-            <div class="ui-g-10 ui-sm-6"><b>{{flight.returnDate | date: 'dd/MM/yyyy'}}</b></div>
-          </div>
-            <hr class="ui-widget-content" style="border-top:0">
-            <button pButton type="button" icon="pi pi-search" style="margin-top:0;" ></button>
-          </p-panel>
+              <span class="p-md-1 p-sm-4" style="text-align: right">{{flight.temperature}} °C</span>
+
+              </div>
+
+              <span class="p-md-10 p-sm-10" style="text-align: left">From: {{flight.from}}</span>
+              <span class="p-md-2 p-sm-2" style="text-align: right">
+                <i>{{flight.price}} € </i>
+              </span>
+
+
+              <span class="p-md-10 p-sm-10" style="text-align: left">
+              {{flight.departureDate | date: 'dd/MM/yyyy'}} -
+              {{flight.returnDate | date: 'dd/MM/yyyy'}}
+              </span>
+              <span class="p-md-2 p-sm-2" style="text-align: right"><a href="{{flight.link}}">Buy now</a></span>
+
         </div>
       </ng-template>
     </p-dataView>
 
   </p-fieldset>
 
+  <div style="font-size: 0.5em;" class="p-col-10">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha"
+                                                  title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
+                      target="_blank">CC 3.0 BY</a></div>
+
+
 </div>
-<div style="font-size: 0.5em;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha"
-    title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-  is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
-    target="_blank">CC 3.0 BY</a></div>

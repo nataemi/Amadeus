@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FlightDataService } from '../services/flight-data.service';
 import { SelectItem } from 'primeng/api';
 import { Flight } from '../model/flight';
-import {DataViewModule} from 'primeng/dataview';
-import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -35,8 +33,8 @@ export class ListComponent implements OnInit {
     { name: 'rain', png: 'raindrops.png' }
   ];
   missingWeathers = this.weather;
-  flight1 = new Flight('Barcelona', new Date(), new Date(), false, this.weather, 27, 'Wroclaw', 1234, 'www.wakacje.pl');
-  flight2 = new Flight('Dubaj', new Date(), new Date(), false, this.weather, 47, 'Berlin', 4312, 'www.urlop.pl');
+  flight1 = new Flight('Barcelona', new Date(), new Date(), true, this.weather, 27, 'Wroclaw', 1234, 'https://www.wakacje.pl');
+  flight2 = new Flight('Dubaj', new Date(), new Date(), false, this.weather, 47, 'Berlin', 4312, 'https://www.urlop.pl');
 
   f: Flight[] = [this.flight1, this.flight2];
 
