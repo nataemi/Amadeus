@@ -17,6 +17,7 @@ import {DataViewModule} from 'primeng/dataview';
 import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
 import { AgmCoreModule } from '@agm/core';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: SearchComponent },
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes),
     ToastModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     })
