@@ -1,6 +1,8 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {Flight} from '../model/flight';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +19,8 @@ export class FlightDataService{
   departureDateSubject = new BehaviorSubject(0);
   returnDateSubject = new BehaviorSubject(0);
 
-  localization = this.localizationSubject.asObservable();
-  minDays = this.minDaysSubject.asObservable() ;
-  maxDays = this.maxDaysSubject.asObservable() ;
-  minTemp = this.minTempSubject.asObservable() ;
-  maxTemp = this.maxTempSubject.asObservable();
-  selectedRainOption = this.selectedRainOptionSubject.asObservable();
-  selectedWeathers = this.selectedWeathersSubject.asObservable();
-  departureDate = this.departureDateSubject.asObservable();
-  returnDate = this.returnDateSubject.asObservable();
+  public flightlist: Flight[];
+
   constructor(private http: HttpClient) { }
 
   setLocalization(input: any) {
@@ -88,32 +83,31 @@ export class FlightDataService{
   getAvailabeFlights() {
 
     const myJSON = JSON.parse('{\n' +
-      '  "description": {\n' +
-      '    "departureDate": "2019-07-27T10:02:29.154Z",\n' +
-      '    "maxDays": 0,\n' +
-      '    "maxTemp": 0,\n' +
-      '    "minDays": 0,\n' +
-      '    "minTemp": 0,\n' +
-      '    "nonStop": true,\n' +
-      '    "returnDate": "2019-07-27T10:02:29.154Z",\n' +
-      '    "selectedRainOption": true,\n' +
-      '    "selectedWeather": [\n' +
-      '      true\n' +
-      '    ]\n' +
-      '  },\n' +
-      '  "flightOriginParameters": {\n' +
-      '    "localization": {\n' +
-      '      "latitude": 0,\n' +
-      '      "longitude": 0\n' +
-      '    },\n' +
-      '    "radiusInKilometers": 0\n' +
-      '  }\n' +
-      '}\n');
+      ' "description": {\n' +
+      '   "departureDate": "2019-07-27",\n' +
+      '   "maxDays": 2,\n' +
+      '   "minDays": 1,\n' +
+      '   "returnDate": "2019-07-28"\n' +
+      ' },\n' +
+      ' "flightOriginParameters": {\n' +
+      '   "localization": {\n' +
+      '     "latitude": 49.0,\n' +
+      '     "longitude": 2.55\n' +
+      '   },\n' +
+      '   "radiusInKilometers": 500\n' +
+      ' },\n' +
+      ' "weatherCondition": {\n' +
+      '   "maxTemp": 40,\n' +
+      '   "minTemp": 15,\n' +
+      '   "selectedRainOption": true,\n' +
+      '   "selectedWeather": [\n' +
+      '     "sunny", "partly", "cloudy"\n' +
+      '   ]\n' +
+      ' }\n' +
+      '}');
     console.log(myJSON);
-    this.http.post('http://localhost:8080/flightadvise',
-      myJSON).subscribe(
-        val => console.log('POST MESSAGE', val)
-    );
+    return this.http.post<Flight[]>('http://localhost:8080/flightadvise',
+      myJSON);
   }
 
 }

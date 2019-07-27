@@ -166,7 +166,7 @@ export class SearchComponent implements OnInit {
       this.anyErrors = true;
     }
     else {
-      this.callGetAvailableFlights();
+      // this.callGetAvailableFlights();
       this.router.navigate(['/list']);
     }
     this.dataService.setLocalization(this.localization);
@@ -191,9 +191,9 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  callGetAvailableFlights(){
-    this.dataService.getAvailabeFlights();
-  }
+  // callGetAvailableFlights(){
+  //   this.dataService.getAvailabeFlights();
+  // }
 
 }
 
