@@ -55,13 +55,6 @@ export class SearchComponent implements OnInit {
     this.geocoder = new google.maps.Geocoder();
   }
 
- dupa(){
-
-  for (let i = 0; i < 3; i++) {
-    console.log (this.selectedWeathers[i]);
-  }
- }
-
   private fillTemperatureArray() {
     this.temperature = Array.from(Range(15, 5, -25));
   }
@@ -173,6 +166,7 @@ export class SearchComponent implements OnInit {
       this.anyErrors = true;
     }
     else {
+      this.callGetAvailableFlights();
       this.router.navigate(['/list']);
     }
     this.dataService.setLocalization(this.localization);
@@ -195,6 +189,10 @@ export class SearchComponent implements OnInit {
         });
       }
     );
+  }
+
+  callGetAvailableFlights(){
+    this.dataService.getAvailabeFlights();
   }
 
 }
