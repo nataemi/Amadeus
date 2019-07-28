@@ -55,19 +55,23 @@
 
     </p-fieldset>
 
-    <p-dataView #dv [value]="f" [paginator]="false" [rows]="20" paginatorPosition="both" filterBy="brand"
-      [sortField]="sortField" [sortOrder]="sortOrder">
+    <p-dataView [value]="f" [paginator]="false" [rows]="20" paginatorPosition="both" filterBy="brand"
+      [sortField]="sortField" [sortOrder]="sortOrder" emptyMessage=''>
       <p-header>
         <div class="ui-helper-clearfix">
           <div class="ui-g">
-            <div class="ui-g-12 ui-md-4">
+            <div class="ui-g-8 ui-md-4">
               <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
                 (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4 ui-md-4">
+                <button pButton type="button" class="ui-button" label="New search" routerLink="/" ></button>
             </div>
           </div>
         </div>
       </p-header>
       <ng-template let-flight pTemplate="listItem">
+
         <div class="p-grid p-justify-center" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
 
 
@@ -75,15 +79,17 @@
 
               <div>
               <span class="p-md-1 p-sm-4">
-                <img *ngIf="flight.rain" class="iconImg" src="assets/weather/raindrops.png"/>
-                <a *ngIf="!flight.rain"> no rain </a>
+                <img *ngIf="flight.raining" class="iconImg" src="assets/weather/raindrops.png"/>
+                <a *ngIf="!flight.raining"> no rain </a>
               </span>
 
               <span class="p-md-1 p-sm-4">
-                <img class="iconImg" src="assets/weather/sunny.png"/>
+                <img *ngIf="flight.cloudCoverIcon === 'sunny'"class="iconImg" src="assets/weather/sunny.png"/>
+                <img *ngIf="flight.cloudCoverIcon === 'cloudy'"class="iconImg" src="assets/weather/clouds.png"/>
+                <img *ngIf="flight.cloudCoverIcon === 'partly'"class="iconImg" src="assets/weather/cloudAndSun.png"/>
               </span>
 
-              <span class="p-md-1 p-sm-4" style="text-align: right">{{flight.temperature}} °C</span>
+              <span class="p-md-1 p-sm-4" style="text-align: right">{{flight.temperature | number:'1.0-0'}} °C</span>
 
               </div>
 
@@ -101,6 +107,14 @@
 
         </div>
       </ng-template>
+      <p-footer>
+        <div *ngIf="loading">
+        <p-progressSpinner></p-progressSpinner>
+        </div>
+        <div *ngIf="!loading && f.length==0">
+          No records found
+        </div>
+      </p-footer>
     </p-dataView>
 
   </p-fieldset>

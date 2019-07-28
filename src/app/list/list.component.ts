@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FlightDataService } from '../services/flight-data.service';
 import { SelectItem } from 'primeng/api';
 import { Flight } from '../model/flight';
+import {DecimalPipe} from '@angular/common';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -32,6 +34,11 @@ export class ListComponent implements OnInit {
   rain: any[] = [
     { name: 'rain', png: 'raindrops.png' }
   ];
+  raining = false;
+  lat;
+  lng;
+  loading = true;
+
   missingWeathers = this.weather;
   // flight1 = new Flight('Barcelona', new Date(), new Date(), true, this.weather, 27, 'Wroclaw', 1234, 'https://www.wakacje.pl');
   // flight2 = new Flight('Dubaj', new Date(), new Date(), false, this.weather, 47, 'Berlin', 4312, 'https://www.urlop.pl');
@@ -88,12 +95,6 @@ onDialogHide() {
       {label: 'Price', value: 'price'}
   ];
 
-    this.dataService.getAvailabeFlights().subscribe(
-      value => {
-        this.f = value;
-        console.log(this.f);
-      }
-    )
 
     this.checkIfWeatherSelected();
     this.dataService.getLocalization().subscribe(data => {
@@ -113,9 +114,10 @@ onDialogHide() {
     });
     this.dataService.getSelectedRainOption().subscribe(data => {
       this.selectedRainOption = data;
-      // if(this.selectedRainOption.length !== 0){
-      //   this.rain = this.selectedRainOption;
-      // }
+      if(data.length !== 0){
+        this.rain = this.selectedRainOption;
+        this.raining = true;
+      }
     });
     this.dataService.getSelectedWeathers().subscribe(data => {
       this.selectedWeathers = data;
@@ -132,6 +134,25 @@ onDialogHide() {
         this.returnDate = new Date();
       }
     });
+    this.dataService.getLatitude().subscribe(data => {
+      this.lat = data;
+    });
+    this.dataService.getLongtitude().subscribe(data => {
+      this.lng = data;
+    });
+
+    let weathersNameList = [];
+    this.selectedWeathers.map(value => weathersNameList.push(value['name']));
+
+    this.dataService.getAvailabeFlights(
+      this.departureDate, this.maxDays, this.minDays,
+      this.returnDate, this.lat, this.lng, this.minTemp, this.maxTemp, this.raining, weathersNameList).subscribe(
+      value => {
+        this.f = value;
+        console.log(this.f);
+        this.loading = false;
+      }
+    );
   }
 
   checkIfWeatherSelected(): boolean {

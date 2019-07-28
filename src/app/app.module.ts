@@ -18,6 +18,7 @@ import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
 import { AgmCoreModule } from '@agm/core';
 import {HttpClientModule} from '@angular/common/http';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 const appRoutes: Routes = [
   { path: '', component: SearchComponent },
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
       appRoutes),
     ToastModule,
     HttpClientModule,
+    ProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     })

@@ -46,3 +46,7 @@ input{
   font-style: italic;
   color: #007ad9;
 }
+
+.ui-datatable-emptymessage {
+  display:none;
+}

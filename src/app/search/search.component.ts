@@ -27,13 +27,13 @@ export class SearchComponent implements OnInit {
   minTemp = 25;
   maxTemp = 45;
   selectedWeathers: any[] = [];
-  weather: any[] = [{ name: 'clouds', png: 'clouds.png' },
-  { name: 'cloudsAndSun', png: 'cloudAndSun.png' },
-  { name: 'sun', png: 'sunny.png' }];
+  weather: any[] = [{ name: 'cloudy', png: 'clouds.png' },
+  { name: 'partly', png: 'cloudAndSun.png' },
+  { name: 'sunny', png: 'sunny.png' }];
   rain: any[] = [
     { name: 'rain', png: 'raindrops.png' }
   ];
-  selectedRainOption;
+  selectedRainOption = [];
   lat;
   lng;
 
@@ -166,7 +166,6 @@ export class SearchComponent implements OnInit {
       this.anyErrors = true;
     }
     else {
-      // this.callGetAvailableFlights();
       this.router.navigate(['/list']);
     }
     this.dataService.setLocalization(this.localization);
@@ -174,10 +173,18 @@ export class SearchComponent implements OnInit {
     this.dataService.setMaxTemp(this.maxTemp);
     this.dataService.setMinDays(this.minDays);
     this.dataService.setMaxDays(this.maxDays);
-    this.dataService.setSelectedRainOption(this.selectedRainOption);
+    if(this.selectedRainOption.length !== 0){
+      this.dataService.setSelectedRainOption(true);
+    }
+    else{
+      this.dataService.setSelectedRainOption(false);
+    }
     this.dataService.setSelectedWeathers(this.selectedWeathers);
     this.dataService.setDepartureDate(this.departureDate);
     this.dataService.setReturnDate(this.returnDate);
+    this.dataService.setLatitude(this.lat);
+    this.dataService.setLongtitude(this.lng);
+    console.log(this.selectedWeathers);
 }
 
 
@@ -190,10 +197,6 @@ export class SearchComponent implements OnInit {
       }
     );
   }
-
-  // callGetAvailableFlights(){
-  //   this.dataService.getAvailabeFlights();
-  // }
 
 }
 

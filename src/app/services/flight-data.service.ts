@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Flight} from '../model/flight';
-import {map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FlightDataService{
+export class FlightDataService {
 
   localizationSubject = new BehaviorSubject('');
   maxDaysSubject = new BehaviorSubject(0);
@@ -18,6 +18,8 @@ export class FlightDataService{
   selectedWeathersSubject = new BehaviorSubject([]);
   departureDateSubject = new BehaviorSubject(0);
   returnDateSubject = new BehaviorSubject(0);
+  latitude = new BehaviorSubject(0);
+  longtitude = new BehaviorSubject(0);
 
   public flightlist: Flight[];
 
@@ -51,6 +53,24 @@ export class FlightDataService{
     this.returnDateSubject.next(input);
   }
 
+  setLatitude(input: any) {
+    this.latitude.next(input);
+  }
+
+  setLongtitude(input: any) {
+    this.longtitude.next(input);
+  }
+
+
+  getLongtitude(): Observable<any> {
+    return this.longtitude.asObservable();
+  }
+
+
+  getLatitude(): Observable<any> {
+    return this.latitude.asObservable();
+  }
+
 
   getLocalization(): Observable<any> {
     return this.localizationSubject.asObservable();
@@ -80,31 +100,30 @@ export class FlightDataService{
     return this.returnDateSubject.asObservable();
   }
 
-  getAvailabeFlights() {
+  getAvailabeFlights(departureDate, maxDays, minDays, returnDate, lat, lng, minTemp, maxTemp, rainOption, weather) {
 
-    const myJSON = JSON.parse('{\n' +
-      ' "description": {\n' +
-      '   "departureDate": "2019-07-27",\n' +
-      '   "maxDays": 2,\n' +
-      '   "minDays": 1,\n' +
-      '   "returnDate": "2019-07-28"\n' +
-      ' },\n' +
-      ' "flightOriginParameters": {\n' +
-      '   "localization": {\n' +
-      '     "latitude": 49.0,\n' +
-      '     "longitude": 2.55\n' +
-      '   },\n' +
-      '   "radiusInKilometers": 500\n' +
-      ' },\n' +
-      ' "weatherCondition": {\n' +
-      '   "maxTemp": 40,\n' +
-      '   "minTemp": 15,\n' +
-      '   "selectedRainOption": true,\n' +
-      '   "selectedWeather": [\n' +
-      '     "sunny", "partly", "cloudy"\n' +
-      '   ]\n' +
-      ' }\n' +
-      '}');
+
+    const myJSON = <JSON><unknown>{
+      'description': {
+        'departureDate': moment(departureDate).format('YYYY-MM-DD').toString(),
+        "maxDays": maxDays,
+        "minDays": minDays,
+        "returnDate": moment(returnDate).format('YYYY-MM-DD').toString()
+      },
+      "flightOriginParameters": {
+        "localization": {
+          "latitude": lat,
+          "longitude": lng,
+        },
+        "radiusInKilometers": 500
+      },
+      "weatherCondition": {
+        "maxTemp": maxTemp,
+        "minTemp": minTemp,
+        "selectedRainOption": rainOption,
+        "selectedWeather": weather
+      }
+    };
     console.log(myJSON);
     return this.http.post<Flight[]>('http://localhost:8080/flightadvise',
       myJSON);
