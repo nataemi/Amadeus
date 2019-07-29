@@ -20,13 +20,13 @@
           <span class="p-md-2">
               Departure after:
             </span>
-        <p-calendar [(ngModel)]="departureDate" (onSelect)="checkIfReturnDayAfterDepartureDay()"></p-calendar>
+        <p-calendar [(ngModel)]="departureDate" [maxDate]="currentDateAdd6" [minDate]="currentDate" (onSelect)="checkIfReturnDayAfterDepartureDay()"></p-calendar>
         </span>
         <span class="p-col-12 p-md-4">
           <span class="p-md-2">
           Return before:
             </span>
-        <p-calendar [(ngModel)]="returnDate" (onSelect)="checkIfReturnDayAfterDepartureDay()"></p-calendar>
+        <p-calendar [(ngModel)]="returnDate"  [maxDate]="currentDateAdd6" [minDate]="currentDate" (onSelect)="checkIfReturnDayAfterDepartureDay()"></p-calendar>
         </span>
       </div>
       <div *ngIf="dateError" class="ui-message ui-messages-error p-col-12">

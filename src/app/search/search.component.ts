@@ -16,7 +16,7 @@ export class SearchComponent implements OnInit {
   @ViewChild('search', {static: true})
   public searchElementRef: ElementRef;
 
-  mainHeaderSlogan = 'Pick your travel destination based on the weather';
+  mainHeaderSlogan = 'Pick your last minute travel destination';
   localization = '';
   departureDate = new Date();
   returnDate = new Date();
@@ -36,6 +36,8 @@ export class SearchComponent implements OnInit {
   selectedRainOption = [];
   lat;
   lng;
+  currentDate = new Date();
+  currentDateAdd6 = new Date();
 
   noneWeatherOptionsSelected = false;
   tempError = false;
@@ -60,7 +62,7 @@ export class SearchComponent implements OnInit {
   }
 
   private fillDaysArray() {
-    const MAXDAYS = 14;
+    const MAXDAYS = 6;
     this.days.push({ label: '1 day', value: 1 });
     Array(MAXDAYS).fill(0).map((x, i) => {
       this.days.push({ label: `${i + 2}` + ' days', value: i + 2 });
@@ -68,6 +70,8 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.currentDateAdd6.setDate( this.currentDateAdd6.getDate() + 6 );
 
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
