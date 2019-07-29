@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Before deploying insert yout google api key in files:
-index.html -> line 11 after 'key=' in the script address
+index.html -> line 11 after 'key=' in the script address and 
 app.module.ts -> line 56 in the place for apiKey
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
